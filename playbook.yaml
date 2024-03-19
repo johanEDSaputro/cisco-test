@@ -1,0 +1,16 @@
+---
+- name: Gather IP routing information from Cisco devices
+  hosts: cisco_devices
+  gather_facts: no
+  connection: network_cli
+  tasks:
+    - name: Execute show ip route command
+      ios_command:
+        commands:
+          - show ip route
+      register: ip_route_output
+
+    - name: Display show ip route output
+      debug:
+        var: ip_route_output.stdout_lines
+
